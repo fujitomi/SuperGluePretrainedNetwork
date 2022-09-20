@@ -99,6 +99,9 @@ if __name__ == '__main__':
         help='SuperPoint Non Maximum Suppression (NMS) radius'
         ' (Must be positive)')
     parser.add_argument(
+        '--dist_thres', type=int, default=3,
+        help='Distance threshold between image pairs')
+    parser.add_argument(
         '--sinkhorn_iterations', type=int, default=20,
         help='Number of Sinkhorn iterations performed by SuperGlue')
     parser.add_argument(
@@ -214,7 +217,7 @@ if __name__ == '__main__':
         ]
         out = make_matching_plot_fast(
             last_frame, frame, kpts0, kpts1, mkpts0, mkpts1, color, text,
-            path=None, show_keypoints=opt.show_keypoints, small_text=small_text)
+            path=None, show_keypoints=opt.show_keypoints, small_text=small_text, dist_thres=opt.dist_thres)
 
         if not opt.no_display:
             cv2.imshow('SuperGlue matches', out)

@@ -485,7 +485,7 @@ def make_matching_plot_fast(image0, image1, kpts0, kpts1, mkpts0,
                             mkpts1, color, text, path=None,
                             show_keypoints=False, margin=10,
                             opencv_display=False, opencv_title='',
-                            small_text=[]):
+                            small_text=[], dist_thres=3):
     H0, W0 = image0.shape
     H1, W1 = image1.shape
     H, W = max(H0, H1), W0 + W1 + margin
@@ -511,7 +511,7 @@ def make_matching_plot_fast(image0, image1, kpts0, kpts1, mkpts0,
     mkpts0, mkpts1 = np.round(mkpts0).astype(int), np.round(mkpts1).astype(int)
     color = (np.array(color[:, :3])*255).astype(int)[:, ::-1]
     for (x0, y0), (x1, y1), c in zip(mkpts0, mkpts1, color):
-        if (x1-x0)**2+(y1-y0)**2 > 0:
+        if (x1-x0)**2+(y1-y0)**2 > 8:
             c = c.tolist()
             cv2.line(out, (x0, y0), (x1 + margin + W0, y1),
                     color=c, thickness=1, lineType=cv2.LINE_AA)
